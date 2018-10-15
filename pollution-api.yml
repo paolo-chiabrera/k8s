@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
       - name: pollution-api-container
-        image: quay.io/d3lirium/pollution-api:v1.0.0
+        image: quay.io/d3lirium/pollution-api:latest
 ---
 apiVersion: v1
 kind: Service

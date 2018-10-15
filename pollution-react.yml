@@ -1,0 +1,29 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: pollution-react-deployment
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: pollution-react
+  template:
+    metadata:
+      labels:
+        app: pollution-react
+    spec:
+      containers:
+      - name: pollution-react-container
+        image: quay.io/d3lirium/pollution-react:v1.0.0
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: pollution-react-service
+spec:
+  ports:
+  - name: http
+    targetPort: 80
+    port: 80
+  selector:
+    app: pollution-react

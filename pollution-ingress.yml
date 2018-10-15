@@ -1,0 +1,20 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: pollution-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik
+    traefik.frontend.rule.type: PathPrefixStrip
+spec:
+  rules:
+  - host: pollution.sillyapps.io
+    http:
+      paths:
+      - path: /api
+        backend:
+          serviceName: pollution-api-service
+          servicePort: http
+      - path: /
+        backend:
+          serviceName: pollution-react-service
+          servicePort: http

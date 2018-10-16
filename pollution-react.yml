@@ -3,7 +3,7 @@ kind: Deployment
 metadata:
   name: pollution-react-deployment
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
       app: pollution-react

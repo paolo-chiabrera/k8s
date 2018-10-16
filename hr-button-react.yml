@@ -1,0 +1,45 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: hr-button-react-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: hr-button-react
+  template:
+    metadata:
+      labels:
+        app: hr-button-react
+    spec:
+      containers:
+      - name: hr-button-react-container
+        image: quay.io/d3lirium/hr-button-react:v0.3.0
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hr-button-react-service
+spec:
+  ports:
+  - name: http
+    targetPort: 80
+    port: 80
+  selector:
+    app: hr-button-react
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: hr-button-ingress
+  annotations:
+    kubernetes.io/ingress.class: traefik
+spec:
+  rules:
+  - host: hr.sillyapps.io
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: hr-button-react-service
+          servicePort: http
